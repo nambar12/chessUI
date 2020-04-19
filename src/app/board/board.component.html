@@ -1,9 +1,10 @@
+<button (click)="newGame()" type="button" class="btn btn-primary">New Game</button>
 <div class="m-5" style="width: 600px; height: 600px;">
   <div class="table-responsive">
     <table class="table table-bordered">
       <tr *ngFor="let row of board">
         <td class="p-0 m-0" *ngFor="let column of row">
-          <app-square></app-square>
+          <app-square [piece]=(column)></app-square>
         </td>
       </tr>
     </table>
