@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Piece} from './piece';
 
 @Component({
@@ -6,18 +6,13 @@ import {Piece} from './piece';
   templateUrl: './piece.component.html',
   styleUrls: ['./piece.component.css']
 })
-export class PieceComponent implements OnInit, AfterViewInit {
+export class PieceComponent implements OnInit {
 
-  pieceInit: Piece;
   piece: Piece;
 
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    // this.piece = this.pieceInit;
   }
 
 }

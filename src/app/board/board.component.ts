@@ -26,10 +26,17 @@ export class BoardComponent implements OnInit {
   }
 
   newGame() {
-    const p: Piece = new Piece();
-    p.color = 'black';
-    p.color = 'king';
-    this.board[2][2] = p;
-    this.board[5][4] = p;
+    const p1: Piece = new Piece();
+    p1.color = 'black';
+    p1.type = 'king';
+    const p2: Piece = new Piece();
+    p2.color = 'white';
+    p2.type = 'king';
+    const p3: Piece = new Piece();
+    p3.color = 'white';
+    p3.type = 'bishop';
+    this.board[2][2] = p1;
+    this.board[5][4] = p2;
+    this.board[7][3] = p3;
   }
 }

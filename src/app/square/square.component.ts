@@ -34,7 +34,8 @@ export class SquareComponent implements OnInit, OnChanges {
     this.entry.clear();
     const factory = this.resolver.resolveComponentFactory(PieceComponent);
     this.componentRef = this.entry.createComponent(factory);
-    this.componentRef.instance.pieceInit = this.piece;
+    this.componentRef.instance.templateUrl = '../piece/templates/Chess_pdt45.svg';
+    this.componentRef.instance.piece = this.piece;
   }
 
   destroyComponent() {
