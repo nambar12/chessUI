@@ -1,9 +1,10 @@
 import {
   Component, ViewChild, ViewContainerRef, ComponentFactoryResolver,
-  ComponentRef, ComponentFactory, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges
+  ComponentRef, ComponentFactory, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges, EventEmitter, Output
 } from '@angular/core';
 import {PieceComponent} from '../piece/piece.component';
 import {Piece} from '../piece/piece';
+import {SelectionService} from '../selection.service';
 
 @Component({
   selector: 'app-square',
@@ -14,9 +15,11 @@ export class SquareComponent implements OnInit, OnChanges {
 
   componentRef: any;
   @Input() piece: Piece;
+  @Output() selectedPieceChange = new EventEmitter<Piece>();
   @ViewChild('pieceContainer', {read: ViewContainerRef}) entry: ViewContainerRef;
 
-  constructor(private resolver: ComponentFactoryResolver) {
+  constructor(private resolver: ComponentFactoryResolver,
+              private selection: SelectionService) {
   }
 
   ngOnInit(): void {
@@ -38,7 +41,20 @@ export class SquareComponent implements OnInit, OnChanges {
     this.componentRef.instance.piece = this.piece;
   }
 
+  hasPiece(): boolean {
+    return this.piece.type !== 'empty';
+  }
+
+
   destroyComponent() {
     this.componentRef.destroy();
+  }
+
+  selected() {
+    if (!this.componentRef) {
+      return;
+    }
+    const p = this.componentRef.instance.piece;
+    this.selection.select(p);
   }
 }

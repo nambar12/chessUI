@@ -9,10 +9,21 @@ import {Piece} from './piece';
 export class PieceComponent implements OnInit {
 
   piece: Piece;
+  hover: boolean;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.hover = false;
   }
 
+  mouseEnter() {
+    if(!this.piece?.selected) {
+      this.hover = true;
+    }
+  }
+
+  mouseLeave() {
+    this.hover = false;
+  }
 }

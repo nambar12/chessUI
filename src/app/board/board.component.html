@@ -1,9 +1,9 @@
 <button (click)="newGame()" type="button" class="btn btn-primary">New Game</button>
-<div class="m-5" style="width: 600px; height: 600px;">
+<div class="m-5" style="width: 420px; height: 420px;">
   <div class="table-responsive">
     <table class="table table-bordered">
-      <tr *ngFor="let row of board">
-        <td class="p-0 m-0" *ngFor="let column of row">
+      <tr *ngFor="let row of board; index as i">
+        <td [bgColor]="(i+j)%2 === 0 ? '#dedede' : 'white'" class="p-0 m-0" *ngFor="let column of row; index as j">
           <app-square [piece]=(column)></app-square>
         </td>
       </tr>

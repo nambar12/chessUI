@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { SquareComponent } from './square/square.component';
 import { PieceComponent } from './piece/piece.component';
+import { HttpClientModule } from '@angular/common/http';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { PieceComponent } from './piece/piece.component';
     PieceComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent],

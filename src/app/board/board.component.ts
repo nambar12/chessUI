@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {PieceComponent} from '../piece/piece.component';
+import { HttpClient } from '@angular/common/http';
 import {Piece} from '../piece/piece';
+import {PieceDTO} from '../DTO/pieceDTO';
+import {SelectionService} from '../selection.service';
 
 @Component({
   selector: 'app-board',
@@ -11,7 +13,11 @@ export class BoardComponent implements OnInit {
 
   board: object[][] = [[]];
 
-  constructor() {
+  constructor(private http: HttpClient,
+              private selection: SelectionService) { }
+
+  ngOnInit(): void {
+    this.selection.subject.subscribe(() => this.selectionChanged());
     for (let x = 0; x < 8; x++) {
       this.board[x] = [];
       for (let y = 0; y < 8; y++) {
@@ -22,21 +28,22 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  newGame() {
+    this.readBoard();
   }
 
-  newGame() {
-    const p1: Piece = new Piece();
-    p1.color = 'black';
-    p1.type = 'king';
-    const p2: Piece = new Piece();
-    p2.color = 'white';
-    p2.type = 'king';
-    const p3: Piece = new Piece();
-    p3.color = 'white';
-    p3.type = 'bishop';
-    this.board[2][2] = p1;
-    this.board[5][4] = p2;
-    this.board[7][3] = p3;
+  readBoard() {
+    this.http.get('http://localhost:8080/board').subscribe(pieces => {
+      for (const pieceDTO of pieces as Array<PieceDTO>) {
+        const piece: Piece = new Piece();
+        piece.type = pieceDTO.name;
+        piece.color = pieceDTO.color.toLowerCase();
+        this.board[pieceDTO.square.y][pieceDTO.square.x] = piece;
+      }
+    });
+  }
+
+  selectionChanged() {
+    console.log(this.selection.current);
   }
 }

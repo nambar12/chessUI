@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+.piece-normal {
+  stroke: black;
+  fill: none;
+}
+
+.piece-normal-fill {
+  stroke: black;
+  fill: black;
+}
+
+.piece-normal-no-stroke {
+  stroke: none;
+  fill: black;
+}
+
+.piece-move {
+  stroke: forestgreen;
+  fill: none;
+}
+
+.piece-move-fill {
+  stroke: forestgreen;
+  fill: forestgreen;
+}
+
+.piece-move-no-stroke {
+  stroke: none;
+  fill: forestgreen;
+}
+
+.piece-selected {
+  stroke: darkred;
+  fill: none;
+}
+
+.piece-selected-fill {
+  stroke: darkred;
+  fill: darkred;
+}
+
+.piece-selected-no-stroke {
+  stroke: none;
+  fill: darkred;
+}
+
+.selectable {
+  cursor: pointer;
+}
