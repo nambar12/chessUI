@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Piece} from '../piece/piece';
 import {PieceDTO} from '../DTO/pieceDTO';
 import {SelectionService} from '../selection.service';
+import {SquareComponent} from '../square/square.component';
 
 @Component({
   selector: 'app-board',
@@ -12,14 +13,17 @@ import {SelectionService} from '../selection.service';
 export class BoardComponent implements OnInit {
 
   board: object[][] = [[]];
+  squares: SquareComponent[][] = [[]];
 
   constructor(private http: HttpClient,
-              private selection: SelectionService) { }
+              private selection: SelectionService) {
+  }
 
   ngOnInit(): void {
     this.selection.subject.subscribe(() => this.selectionChanged());
     for (let x = 0; x < 8; x++) {
       this.board[x] = [];
+      this.squares[x] = new Array(8);
       for (let y = 0; y < 8; y++) {
         const p: Piece = new Piece();
         p.type = 'empty';
@@ -44,6 +48,11 @@ export class BoardComponent implements OnInit {
   }
 
   selectionChanged() {
-    console.log(this.selection.current);
+    if (this.selection.current && this.selection.previous) {
+      this.selection.current.type = this.selection.previous.type;
+      this.selection.current.color = this.selection.previous.color;
+      this.selection.previous.type = 'empty';
+      this.selection.select(null);
+    }
   }
 }

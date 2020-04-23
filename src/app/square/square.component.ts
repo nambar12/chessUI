@@ -15,6 +15,8 @@ export class SquareComponent implements OnInit, OnChanges {
 
   componentRef: any;
   @Input() piece: Piece;
+  @Input() x: number;
+  @Input() y: number;
   @Output() selectedPieceChange = new EventEmitter<Piece>();
   @ViewChild('pieceContainer', {read: ViewContainerRef}) entry: ViewContainerRef;
 
@@ -28,12 +30,12 @@ export class SquareComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout(() => {
       if (this.piece.type !== 'empty') {
-        this.createComponent('A');
+        this.createComponent();
       }
     });
   }
 
-  createComponent(type: string) {
+  createComponent() {
     this.entry.clear();
     const factory = this.resolver.resolveComponentFactory(PieceComponent);
     this.componentRef = this.entry.createComponent(factory);
@@ -45,12 +47,20 @@ export class SquareComponent implements OnInit, OnChanges {
     return this.piece.type !== 'empty';
   }
 
-
-  destroyComponent() {
-    this.componentRef.destroy();
-  }
-
   selected() {
+    if (this.selection.current) {
+      if (this.selection.current !== this.piece) {
+        if (this.componentRef) {
+          this.componentRef.destroy();
+        }
+        this.piece.type = this.selection.current.type;
+        this.piece.color = this.selection.current.color;
+        this.selection.current.type = 'empty';
+        this.createComponent();
+        this.selection.select(null);
+        return;
+      }
+    }
     if (!this.componentRef) {
       return;
     }
