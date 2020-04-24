@@ -46,3 +46,11 @@
 .selectable {
   cursor: pointer;
 }
+
+.highlight-ok {
+  background-color: #deffd9;
+}
+
+.highlight-block {
+  background-color: #ffc1bd;
+}

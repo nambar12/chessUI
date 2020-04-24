@@ -1,5 +1,7 @@
-<div (click)="selected()"
-     [ngClass]="{'selectable' : hasPiece() }"
+<div (click)="selected()" (mouseenter) ="setHighlight(true)"  (mouseleave) ="setHighlight(false)"
+     [ngClass]="{'selectable' : hasPiece(),
+     'highlight-ok' : highlight && moveAllowed(),
+     'highlight-block' : highlight && !moveAllowed()}"
      style="width:50px;height:50px;">
   <template #pieceContainer>
   </template>

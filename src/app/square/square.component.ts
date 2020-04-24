@@ -19,6 +19,7 @@ export class SquareComponent implements OnInit, OnChanges {
   @Input() y: number;
   @Output() selectedPieceChange = new EventEmitter<Piece>();
   @ViewChild('pieceContainer', {read: ViewContainerRef}) entry: ViewContainerRef;
+  highlight: boolean;
 
   constructor(private resolver: ComponentFactoryResolver,
               private selection: SelectionService) {
@@ -79,5 +80,16 @@ export class SquareComponent implements OnInit, OnChanges {
 
   private moveAllowed() {
     return true;
+  }
+
+  setHighlight(shouldHighlight: boolean) {
+    if (shouldHighlight) {
+      if(this.selection.current) {
+        this.highlight = true;
+      }
+    }
+    else {
+      this.highlight = false;
+    }
   }
 }
