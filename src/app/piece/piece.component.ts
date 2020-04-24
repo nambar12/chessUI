@@ -18,7 +18,7 @@ export class PieceComponent implements OnInit {
   }
 
   mouseEnter() {
-    if(!this.piece?.selected) {
+    if (!this.piece?.selected) {
       this.hover = true;
     }
   }

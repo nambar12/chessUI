@@ -1,6 +1,6 @@
 import {
   Component, ViewChild, ViewContainerRef, ComponentFactoryResolver,
-  ComponentRef, ComponentFactory, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges, EventEmitter, Output
+  OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output
 } from '@angular/core';
 import {PieceComponent} from '../piece/piece.component';
 import {Piece} from '../piece/piece';
@@ -51,7 +51,7 @@ export class SquareComponent implements OnInit, OnChanges {
   selected() {
     if (this.selection.current) {
       if (this.selection.current !== this.piece) {
-        if(this.moveAllowed()) {
+        if (this.moveAllowed()) {
           this.move();
         }
         return;
@@ -84,7 +84,7 @@ export class SquareComponent implements OnInit, OnChanges {
 
   setHighlight(shouldHighlight: boolean) {
     if (shouldHighlight) {
-      if(this.selection.current) {
+      if (this.selection.current) {
         this.highlight = true;
       }
     }
