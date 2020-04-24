@@ -10,6 +10,8 @@ export class SelectionService {
   previous: Piece = null;
   current: Piece = null;
   subject: Subject<Piece> = new Subject<Piece>();
+  x: number;
+  y: number;
 
   constructor() {
   }

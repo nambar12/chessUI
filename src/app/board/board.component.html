@@ -4,7 +4,7 @@
     <table class="table table-bordered">
       <tr *ngFor="let row of board; index as i">
         <td [bgColor]="(i+j)%2 === 0 ? '#dedede' : 'white'" class="p-0 m-0" *ngFor="let column of row; index as j">
-          <app-square [piece]=(column)></app-square>
+          <app-square [x]="i" [y]="j" [piece]=(column)></app-square>
         </td>
       </tr>
     </table>

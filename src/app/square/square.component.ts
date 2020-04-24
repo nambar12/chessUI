@@ -50,14 +50,9 @@ export class SquareComponent implements OnInit, OnChanges {
   selected() {
     if (this.selection.current) {
       if (this.selection.current !== this.piece) {
-        if (this.componentRef) {
-          this.componentRef.destroy();
+        if(this.moveAllowed()) {
+          this.move();
         }
-        this.piece.type = this.selection.current.type;
-        this.piece.color = this.selection.current.color;
-        this.selection.current.type = 'empty';
-        this.createComponent();
-        this.selection.select(null);
         return;
       }
     }
@@ -65,6 +60,24 @@ export class SquareComponent implements OnInit, OnChanges {
       return;
     }
     const p = this.componentRef.instance.piece;
+    this.selection.x = this.x;
+    this.selection.y = this.y;
     this.selection.select(p);
+  }
+
+  private move() {
+    console.log(`move (${this.selection.x},${this.selection.y}) -> (${this.x},${this.y})`);
+    if (this.componentRef) {
+      this.componentRef.destroy();
+    }
+    this.piece.type = this.selection.current.type;
+    this.piece.color = this.selection.current.color;
+    this.selection.current.type = 'empty';
+    this.createComponent();
+    this.selection.select(null);
+  }
+
+  private moveAllowed() {
+    return true;
   }
 }
